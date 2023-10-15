@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase history</title>
+</head>
+<body>
+    <h1>Purchase form:</h1>
+    <form method="POST">
+        <label for="product_name">Product name:</label>
+        <input type="text" name="product_name" id="product_name" required><br><br>
+
+        <label for="unit_price">Unit price:</label>
+        <input type="number" step="0.01" name="unit_price" id="unit_price" required><br><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" required><br><br>
+
+        <p class="line-spacing"><button type="submit">Save buy</button></p>
+        <br>
+    </form>
+    {% if product_name %}
+    <h2>Entered data:</h2>
+    <p>Product name: {{ product_name }}</p>
+    <p>Unit price: {{ unit_price }}</p>
+    <p>Quantity: {{ quantity }}</p>
+    {% endif %}
+
+    <p class="line-spacing"><button type="button"> <a href="/change_balance">Change balance</a></button></p>
+    <p class="line-spacing"><button type="button"> <a href="/add_sale">Sale products</a></button></p>
+    <p class="line-spacing"><button type="button"> <a href="/history">History</a></button></p>
+
+</body>
+</html>

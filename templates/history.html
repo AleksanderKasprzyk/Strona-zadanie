@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History</title>
+</head>
+<body>
+    <h1>Purchase history:</h1>
+    <ul>
+        {% for purchase in purchases %}
+            <li>{{ purchase.product_name }} (Price: {{ purchase.unit_price }} in PLN, Quantity: {{ purchase.quantity }}, Total cost: {{ purchase.total_cost }} in PLN)</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Sales history:</h1>
+    <ul>
+        {% for sale in sales_history %}
+            <li>{{ sale.product_name }} (Price: {{ sale.unit_price }} in PLN, Quantity: {{ sale.quantity }}, Total cost: {{ sale.total_price }} in PLN)</li>
+        {% endfor %}
+    </ul>
+
+    <p class="line-spacing"> <button type="button"> <a href="/">Back to purchase form</a></button></p>
+</body>
+</html>
