@@ -87,9 +87,11 @@ def change_balance():
     return render_template('change_balance.html', balance=balance)
 
 
-@app.route('/history')
-def history():
-    return render_template('history.html', purchases=purchases, sales_history=sales_history)
+@app.route('/history/')
+@app.route('/history/<int:start>/')
+@app.route('/history/<int:start>/<int:end>/')
+def history(start=0, end=len(sales_history)):
+    return render_template('history.html', purchases=purchases, sales_history=sales_history[start:end])
 
 
 if __name__ == '__main__':
