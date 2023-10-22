@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import json
 
 app = Flask(__name__)
 # current_inventory = []
@@ -32,6 +33,9 @@ def purchase_form():
         # current_quantity_items.append(quantity)
         # current_price.append(unit_price)
 
+        with open('purchase_form.json', mode='a+') as file:
+            file.write(json.dumps(purchase, indent=4))
+
         return render_template('home_page.html', product_name=product_name, unit_price=unit_price,
                                quantity=quantity)
 
@@ -56,6 +60,9 @@ def add_sale():
         sales_history.append(sales)
         # purchases.remove(sales)
 
+        with open('purchase_form.json', mode='a+') as file:
+            file.write(json.dumps(sales, indent=4))
+
         return render_template('add_sale.html', product_name=product_name, unit_price=unit_price,
                                quantity=quantity)
 
@@ -68,19 +75,53 @@ def change_balance():
     balance = float(0)
 
     if request.method == 'POST':
-        comment = request.form['comment']
-        value = request.form['value']
+        comment = request.form.get('comment')
+        value = request.form.get('value')
         try:
             if comment == 'add' or comment == 'Add':
                 value = float(value)
                 balance += value
-                return f'Balance changed by {value} in PLN.'
+                answer_add = f'Balance changed on plus by {value} in PLN.'
+
+                added_balance = \
+                    {
+                        "Added": balance,
+                        "Comment": answer_add
+                    }
+
+                with open('save_balance.json', mode='a+') as file:
+                    file.write(json.dumps(added_balance, indent=4))
+
+                return render_template('change_balance.html', answer_add=answer_add, balance=balance)
+
             elif comment == 'substract' or comment == 'Substract':
                 value = float(value)
                 balance -= value
-                return f'Balance changed by {value} in PLN.'
+                answer_substract = f'Balance changed on minus by {value} in PLN.'
+
+                minus_balance = \
+                    {
+                        "Added": balance,
+                        "Comment": answer_substract
+                    }
+
+                with open('save_balance.json', mode='a+') as file:
+                    file.write(json.dumps(minus_balance, indent=4))
+
+                return render_template('change_balance.html', answer_substract=answer_substract, balance=balance)
+
         except ValueError:
-            return 'Error: Value must be a number.'
+            error = 'Error: Value must be a number.'
+
+            error_json = \
+                {
+                    "Error": error
+                }
+
+            with open('save_balance.json', mode='a+') as file:
+                file.write(json.dumps(error_json, indent=4))
+
+            return render_template('change_balance.html', error=error)
 
         return render_template('change_balance.html', comment=comment, balance=balance, value=value)
 

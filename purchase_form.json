@@ -1,0 +1,17 @@
+{
+    "product_name": "Mercedes",
+    "unit_price": 10000.0,
+    "quantity": 1,
+    "total_cost": 10000.0
+}
+{
+    "product_name": "Audi",
+    "unit_price": 330000.0,
+    "quantity": 1,
+    "total_cost": 330000.0
+}{
+    "product_name": "Audi",
+    "unit_price": 5000.0,
+    "quantity": 1,
+    "total_price": 5000.0
+}
